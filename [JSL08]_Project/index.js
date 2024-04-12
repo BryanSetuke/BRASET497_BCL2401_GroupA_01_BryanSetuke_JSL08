@@ -1,44 +1,48 @@
 // Define a variable to hold the singleton instance
+// This variable will store the one and only instance of the `BankBranch` class.
 let bankBranchInstance = null;
 
 // Define the Singleton class for BankBranch
 class BankBranch {
-  constructor(branchInfo) {
-    // Check if the instance already exists; if yes, return it; otherwise, create a new instance
-    if (!bankBranchInstance) {
-      this.branchInfo = branchInfo;
-      bankBranchInstance = this;
+    constructor(branchInfo) {
+        // When a new instance of `BankBranch` is created, it checks if an instance already exists.
+        // If an instance is found (bankBranchInstance is not null), it returns the existing instance.
+        // If no instance exists, it sets up the new instance and saves it in `bankBranchInstance`.
+        if (!bankBranchInstance) {
+            this.branchInfo = branchInfo;
+            bankBranchInstance = this;
+        }
+        // Return the single instance of `BankBranch`, whether it was just created or already existed.
+        return bankBranchInstance;
     }
-    return bankBranchInstance;
-  }
 
-  // Define methods to manage branch information
-  getBranchInfo() {
-    return this.branchInfo;
-  }
-  
-  // Other methods related to branch management can be added here.
+    // This method returns the branch information for the singleton instance.
+    getBranchInfo() {
+        return this.branchInfo;
+    }
+
+    // Additional methods for branch management can be added here.
 }
 
 // Usage
-const branchA = new BankBranch("Main Street Branch");
-console.log(branchA.getBranchInfo()); // Outputs: Main Street Branch
 
-const branchB = new BankBranch("Second Street Branch");
-console.log(branchB.getBranchInfo()); // Still outputs: Main Street Branch, because it's a singleton
+// Create the first instance of `BankBranch` with branch information.
+const branchA = new BankBranch("Shop 10, Rustenburg Mall, Swartruggens Rd, Rustenburg, 2999");
+console.log(branchA.getBranchInfo()); // Outputs the branch information: "Shop 10, Rustenburg Mall, Swartruggens Rd, Rustenburg, 2999"
 
-console.log(branchA === branchB); // true, both variables point to the same instance
+// Create another instance of `BankBranch`, but because of the singleton pattern, it will not create a new instance.
+const branchB = new BankBranch("FNB Rustenburg Square, Von Wielligh St, Rustenburg, 2999");
+console.log(branchB.getBranchInfo()); // Outputs the same branch information as `branchA`: "Shop 10, Rustenburg Mall, Swartruggens Rd, Rustenburg, 2999"
+
+// Check if `branchA` and `branchB` are the same instance.
+// Since `BankBranch` is a singleton, they both should refer to the same instance.
+console.log(branchA === branchB); // true, confirming that both variables point to the same instance.
 
 // NOTES:
-// This example demonstrates the Singleton pattern by creating a single instance of the `BankBranch` class.
-// Even if we attempt to create another instance of the branch, we receive the original instance,
-// ensuring that there is only one set of branch information throughout the application.
+// This example demonstrates the Singleton pattern through the `BankBranch` class, ensuring only one instance of the branch exists across the application.
 
-// - We define a `BankBranch` class that represents bank branch information.
-// - We use the Singleton pattern to ensure that there is only one instance of the `BankBranch` class.
-// - The `bankBranchInstance` variable is used to hold the single instance of the class.
-// - When a new `BankBranch` instance is created, it checks if `bankBranchInstance` already exists.
-//   If it does, it returns the existing instance; otherwise, it creates a new one.
-// - The `getBranchInfo` method allows us to retrieve the branch information from the singleton instance.
-// - We demonstrate the Singleton pattern by creating two instances (`branchA` and `branchB`) and show that they both point to the same instance,
-//   ensuring that there is only one set of branch information throughout the application.
+// - The `BankBranch` class represents bank branch information and uses the Singleton pattern to manage a single instance.
+// - The static variable `bankBranchInstance` holds the sole instance of `BankBranch`.
+// - When a new `BankBranch` instance is requested, the code checks whether `bankBranchInstance` already exists. If it does, the existing instance is returned; otherwise, a new one is created.
+// - The `getBranchInfo` method retrieves the branch information from the singleton instance.
+// - We test the Singleton pattern by creating two variables (`branchA` and `branchB`) referencing `BankBranch` instances. Both variables point to the same instance, confirming the single instance nature of the class.
